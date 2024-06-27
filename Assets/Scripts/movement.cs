@@ -21,7 +21,6 @@ public class movement : MonoBehaviour
     bool isGrounded;
     public LayerMask ground;
     public GameObject playergameobject;
-
     healthtest Healthtest;
 
     
@@ -43,7 +42,7 @@ public class movement : MonoBehaviour
     {
        
         animator = playergameobject.GetComponent<Animator>();
-        Healthtest = gameObject.GetComponent<healthtest>();
+        Healthtest = FindAnyObjectByType<healthtest>();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         idle();
@@ -158,9 +157,11 @@ public class movement : MonoBehaviour
             speed = 10;
         }
 
-        public void GetHit()
+        public IEnumerator GetHit()
         {
-            animator.SetTrigger("GetHit");
+            animator.SetTrigger("Gethit");
+            yield return new WaitForSeconds(1);
+            animator.ResetTrigger("Gethit");
         }
 
         public void OnTriggerEnter(Collider other)
